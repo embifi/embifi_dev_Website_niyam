@@ -62,3 +62,33 @@
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
   }
+  .blog__title-details{
+    font-size: 4rem;
+    text-shadow: none !important;
+    font-style: normal;
+  }
+  .para-title{
+    font-size: 3.2rem;
+    font-weight: 800;
+    border-bottom: 0.5rem solid #fff;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.3rem;
+  }
+  .blog-content{
+    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 3.2rem;
+    margin-top: 2rem;
+    letter-spacing: 0.1rem;
+    text-shadow: none;
+    
+  }
+  .blog_image{
+    border-radius: 8px;
+  }
+/* .blogImage{
+  border: 3px solid #9d31a0;
+  border-radius: 8px;
+} */
