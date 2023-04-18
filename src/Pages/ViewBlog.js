@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 import { CssBaseline, Typography, Grid, Box, Container } from "@mui/material";
 import PlainHeader from "../Components/PlainHeader";
@@ -18,6 +19,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import "./ViewBlog.css";
 import moment from "moment";
+import { ClassNames } from "@emotion/react";
 
 const ViewBlog = () => {
   const location = useLocation();
@@ -25,11 +27,12 @@ const ViewBlog = () => {
   const [detailedBlog, setDetailedBlog] = useState({});
   const [blogs, setBlogs] = useState([]);
 
-
   const handleDetailBlog = (blog) => {
     navigate(
-      `/view-blog/${blog?.blog_title?.replaceAll(" ", "-")?.replaceAll(",", "")}`,
-      { state: { blog: blog, blogs: blogs  } }
+      `/view-blog/${blog?.blog_title
+        ?.replaceAll(" ", "-")
+        ?.replaceAll(",", "")}`,
+      { state: { blog: blog, blogs: blogs } }
     );
   };
 
@@ -41,9 +44,10 @@ const ViewBlog = () => {
       behavior: "smooth",
     });
   }, [location.state]);
+  // const blogTitle = detailedBlog.blog_title.split(" ");
 
   return (
-    <>
+    <div className="blog__container">
       <PlainHeader />
       <div className="main-comp-view-blog">
         <div className="go-back-btn-fixed">
@@ -81,19 +85,77 @@ const ViewBlog = () => {
           >
             <Grid className="mt-3" container spacing={2}>
               <Grid className="profile-details-cont" item xs={12}>
-              <span style={{ color: "rgb(208 214 224 / 68%)" }}>
-                           {(detailedBlog?.createdAt || detailedBlog?.updatedAt) && "| "}{moment(detailedBlog?.createdAt || detailedBlog?.updatedAt).format("Do MMMM, YYYY")}
-                          </span>
+                <span style={{ color: "rgb(208 214 224 / 68%)" }}>
+                  {(detailedBlog?.createdAt || detailedBlog?.updatedAt) && "| "}
+                  {moment(
+                    detailedBlog?.createdAt || detailedBlog?.updatedAt
+                  ).format("Do MMMM, YYYY")}
+                </span>
               </Grid>
+
+              <Grid className="profile-details-cont " item xs={12}>
+                <div className="blog__header">
+                  <div>
+                    <img
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50px",
+                      }}
+                      src={detailedBlog?.userData?.image ?? "no image"}
+                    />
+                    <span>{detailedBlog?.userData?.name ?? "embifi"}</span>
+                  </div>
+                  <div className="profile__detail-name">
+                    <Grid
+                      sx={{
+                        mt: 3,
+                        width: "115px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                      className="socialmedia__icon"
+                    >
+                      <TwitterShareButton
+                        title={detailedBlog?.title + "\n"}
+                        via={detailedBlog?.profile_name}
+                        url={window.location.href}
+                        className="share-button"
+                      >
+                        <TwitterIcon className="Twitter__icon" />
+                      </TwitterShareButton>
+                      <LinkedinShareButton
+                        title={
+                          detailedBlog?.title +
+                          "\n" +
+                          detailedBlog?.profile_name +
+                          "\n"
+                        }
+                        summary={detailedBlog?.body}
+                        source={window.location.href}
+                        url={window.location.href}
+                        className="share-button"
+                      >
+                        <LinkedInIcon className="Linkedin__icon" />
+                      </LinkedinShareButton>
+                      <FacebookShareButton
+                        quote={detailedBlog?.title}
+                        url={window.location.href}
+                        className="share-button"
+                      >
+                        <FacebookIcon className="Facebook__icon" />
+                      </FacebookShareButton>
+                    </Grid>
+                  </div>
+                </div>
+              </Grid>
+
+              {/* Blog Title */}
               <Grid className="title-details" item xs={12}>
-                <p>{detailedBlog?.blog_title}</p>
+                <p className="blog__title-details">{detailedBlog.blog_title}</p>
               </Grid>
-              <Grid className="profile-details-cont" item xs={12}>
-              <div>
-                            <img style={{width: "20px", height: "20px", borderRadius: "50px"}} src={detailedBlog?.userData?.image} />
-                          </div>
-                <span style={{}}>{detailedBlog?.userData?.name}</span>
-              </Grid>
+
+              {/* blog image */}
               <Grid
                 sx={{
                   height: {
@@ -107,14 +169,19 @@ const ViewBlog = () => {
                 xs={12}
                 for="images"
               >
-                <img
-                  style={{
-                    height: "100%",
-                    maxWidth: "100%",
-                  }}
-                  src={detailedBlog?.image}
-                ></img>
+                <div className="blogImage">
+                  <img
+                    style={{
+                      height: "100%",
+                      maxWidth: "100%",
+                    }}
+                    src={detailedBlog?.image}
+                    className="blog_image"
+                  ></img>
+                </div>
               </Grid>
+
+              {/* share your post */}
 
               {detailedBlog?.blogs?.map((para, index) => {
                 return (
@@ -131,46 +198,14 @@ const ViewBlog = () => {
               })}
             </Grid>
             <Grid sx={{ mt: 5 }} item xs={12}>
-              <Grid>
-                <span style={{ color: "#8A8F98" }}>Share this post</span>
-              </Grid>
-              <Grid
-                sx={{
-                  mt: 3,
-                  width: "115px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <TwitterShareButton 
-                 title={detailedBlog?.title+"\n"}
-                 via={detailedBlog?.profile_name}
-                url={window.location.href}
-                className="share-button"
-                >
-                  <TwitterIcon />
-                </TwitterShareButton>
-                <LinkedinShareButton 
-                  title={detailedBlog?.title + "\n" + detailedBlog?.profile_name + "\n"}
-                  summary={detailedBlog?.body}
-                 source={window.location.href}
-                 url={window.location.href}
-                 className="share-button"
-                >
-                  <LinkedInIcon />
-                </LinkedinShareButton>
-                <FacebookShareButton
-                quote={detailedBlog?.title}
-                url={window.location.href}
-                className="share-button"
-                >
-                  <FacebookIcon />
-                </FacebookShareButton>
-              </Grid>
+              {/* <Grid>
+                <span className="post__icon">Share this post</span>
+              </Grid> */}
             </Grid>
             <hr style={{ color: "white" }} />
           </Box>
         </Container>
+
         <Box
           sx={{
             display: "flex",
@@ -211,87 +246,106 @@ const ViewBlog = () => {
             </Grid>
           </Grid> */}
         </Box>
+
+
+
         <div style={{ padding: "50px" }}>
           <div id="scroll-div">
-            
-          {blogs?.map((blog, index) => {
-            if (blog?._id !== detailedBlog?._id) {
-              return (
-                <Grid
-                  key={index}
-                  sm={6}
-                  md={6}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    mb: 5,
-                  }}
-                  onClick={() => {
-                    handleDetailBlog(blog);
-                  }}
-                >
-                  <Card
+            {blogs?.map((blog, index) => {
+              if (blog?._id !== detailedBlog?._id) {
+                return (
+                  <Grid
                     key={index}
+                    sm={6}
+                    md={6}
                     sx={{
-                      borderRadius: "10px",
-                      backgroundColor: "#000000e8",
-                      color: "white",
-                      maxWidth: 345,
-                      height: 345,
+                      display: "flex",
+                      justifyContent: "center",
+                      mb: 5,
+                    }}
+                    onClick={() => {
+                      handleDetailBlog(blog);
                     }}
                   >
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        height={"140"}
-                        image={blog?.image}
-                        alt="green iguana"
-                      />
-                      <CardContent
+                    <Card
+                      key={index}
                       sx={{
-                        padding: "16px 0"
-                      }}>
-                        <Typography
+                        borderRadius: "10px",
+                        backgroundColor: "#000000e8",
+                        color: "white",
+                        maxWidth: 345,
+                        height: 345,
+                      }}
+                    >
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          height={"140"}
+                          image={blog?.image}
+                          alt="green iguana"
+                        />
+                        <CardContent
                           sx={{
-                            color: "white",
+                            padding: "16px 0",
                           }}
-                          gutterBottom
-                          variant="h5"
-                          component="div"
                         >
-                          {blog?.blog_title?.slice(0, 25) + "..."}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            color: "white",
-                          }}
-                          variant="body2"
-                          color="text.secondary"
-                        >
-                          {blog?.blogs?.[0].body?.slice(0, 200) + "..."}
-                        </Typography>
-                        <div className="profile-details-cont">
-                          <div>
-                            <img style={{width: "20px", height: "20px", borderRadius: "50px"}} src={blog?.userData?.image} />
+                          <Typography
+                            sx={{
+                              color: "white",
+                            }}
+                            gutterBottom
+                            variant="h5"
+                            component="div"
+                          >
+                            {blog?.blog_title?.slice(0, 25) + "..."}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              color: "white",
+                            }}
+                            variant="body2"
+                            color="text.secondary"
+                          >
+                            {blog?.blogs?.[0].body?.slice(0, 200) + "..."}
+                          </Typography>
+                          <div className="profile-details-cont">
+                            <div>
+                              <img
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "50px",
+                                }}
+                                src={blog?.userData?.image}
+                              />
+                            </div>
+                            <span style={{}}>{blog?.userData?.name}</span>
+                            <span style={{ color: "rgb(208 214 224 / 68%)" }}>
+                              {(detailedBlog?.createdAt ||
+                                detailedBlog?.updatedAt) &&
+                                "| "}
+                              {moment(
+                                detailedBlog?.createdAt ||
+                                  detailedBlog?.updatedAt
+                              ).format("Do MMMM, YYYY")}
+                            </span>
                           </div>
-                          <span style={{}}>{blog?.userData?.name}</span>
-                          <span style={{ color: "rgb(208 214 224 / 68%)" }}>
-                           {(detailedBlog?.createdAt || detailedBlog?.updatedAt) && "| "}{moment(detailedBlog?.createdAt || detailedBlog?.updatedAt).format("Do MMMM, YYYY")}
-                          </span>
-                        </div>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              );
-            }
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                );
+              }
             })}
-
           </div>
         </div>
+
+
+
+        
       </div>
       <FooterComp />
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,10 @@
 .main-comp {
-    background-color: black;
+    background-color: #fff;
     padding-top: 5rem;
     color: white;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .profile-details-cont {

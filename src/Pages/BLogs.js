@@ -24,7 +24,7 @@ import moment from "moment";
 function BLogs() {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   const getImage = async (key) => {
@@ -58,18 +58,22 @@ console.log(error)
       );
     }
     let arr = blogs;
+    console.log(arr);
     let arr1 = arr.concat(response?.data?.data);
     console.log(arr1)
     for (let i = 0; i < arr1.length; i++) {
-      let key_temp = `${baseURL}/embifi-website/get-blog-image?key=${arr1[i]?.key}`;
-      let key_temp1 = `${baseURL}/embifi-website/get-blog-image?key=${arr1[i]?.userData?.key}`;
+      let key_temp = `${baseURL}/embifi-website/get-blog-image?key=${arr1[i]?.key ?? "no data"}`;
+      let key_temp1 = `${baseURL}/embifi-website/get-blog-image?key=${arr1[i]?.userData?.key ?? "nothing"}`;
       let b64 = await getImage(key_temp);
-      let bit64 = await getImage(key_temp1);
+      // console.log(b64)
+      let bit64 = await getImage(key_temp1) ?? "hello";
       arr1[i].image = b64;
-      arr1[i].userData.image = bit64;
+      if(arr1[i]?.userData?.image) {
+        arr1[i].userData.image = bit64;  
+      }
     }
-   
-     setBlogs(arr1);
+   console.log(arr1)
+     setBlogs(arr1)
      return setLoading(false);
   };
 
@@ -84,6 +88,7 @@ console.log(error)
       { state: { blog: blog, blogs: blogs } }
     );
   };
+  
 
   return (
     <>
@@ -92,7 +97,7 @@ console.log(error)
         <Container component="main" maxWidth="md">
           <CssBaseline />
           <Grid container>
-            <span className="">
+            <span className="blog_header">
               <b>Blogs</b> | Updates from the Embifi team
             </span>
           </Grid>
@@ -132,6 +137,8 @@ console.log(error)
                       height: index === 0 ? 450 : 345,
                     }}
                   >
+
+                    {/* blog Image */}
                     <CardActionArea>
                       <CardMedia
                         component="img"
@@ -144,6 +151,7 @@ console.log(error)
                       }}>
                         <Typography
                           sx={{
+                            fontsize:"2rem",
                             color: "white",
                           }}
                           gutterBottom
@@ -163,7 +171,7 @@ console.log(error)
                         </Typography>
                         <div className="profile-details-cont">
                           <div>
-                            <img style={{width: "20px", height: "20px", borderRadius: "50px"}} src={blog?.userData?.image} />
+                            <img style={{width: "20px", height: "20px", borderRadius: "50px"}} src={blog?.userData?.image ? blog.userData.image : "HumanImage"}/>
                           </div>
                           <span style={{}}>{blog?.userData?.name}</span>
                           <span style={{ color: "rgb(208 214 224 / 68%)" }}>
@@ -172,6 +180,8 @@ console.log(error)
                         </div>
                       </CardContent>
                     </CardActionArea>
+
+                    
                   </Card>
                 </Grid>
               );

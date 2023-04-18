@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@mui/material";
 import MobHeader from "./MobHeader";

@@ -29,6 +29,7 @@ function MyBlogs() {
   const handleDetailBlog = (blog) => {
     // setDetailedBlog(blog);
     dispatch(bloger(blog))
+    console.log(blog)
    
     navigate("/blog-details");
   };

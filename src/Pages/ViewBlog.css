@@ -47,6 +47,11 @@
   text-align: justify;
   scrollbar-width: thin;
 }
+.blog__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
 
 #scroll-div::-webkit-scrollbar {
   display: none;
@@ -83,8 +88,10 @@
     margin-top: 2rem;
     letter-spacing: 0.1rem;
     text-shadow: none;
+    text-align: justify;
     
   }
+
   .blog_image{
     border-radius: 8px;
   }
@@ -92,3 +99,49 @@
   border: 3px solid #9d31a0;
   border-radius: 8px;
 } */
+.blog__header{
+  /* border: 2px solid #9d31a0; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+/* .profile__detail-name{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+} */
+
+/* .post__icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8A8F98;
+} */
+.socialmedia__icon{
+  /* border: 2px solid #9d31a0; */
+  /* color: rgb(255, 255, 255,0.5); */
+  margin-bottom: 1.5rem;
+}
+.Twitter__icon{
+  color: rgb(255, 255, 255,0.5);}
+
+  .Twitter__icon:hover{
+    color: rgb(255, 255, 255,1);}
+
+
+.Facebook__icon{
+  color: rgb(255, 255, 255,0.5);}
+
+  .Facebook__icon:hover{
+    color: rgb(255, 255, 255,1);}  
+
+
+.Linkedin__icon{
+  color: rgb(255, 255, 255,0.5);}
+
+  .Linkedin__icon:hover{
+    color: rgb(255, 255, 255,1);} 
+
+

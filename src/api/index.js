@@ -13,6 +13,8 @@ API.interceptors.request.use(
   }
 );
 
+
+//Api iteration
 export const login = (payload) => API.post(`/lms/user/login`, payload);
 export const logout = () => API.post(`/lms/user/logout`);
 export const verifyAuth = () => API.get(`/lms/user/verify-user`);
