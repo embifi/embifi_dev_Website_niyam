@@ -1,0 +1,136 @@
+ <>
+      <PlainHeader />
+    <div className="main_container">
+      <div className="main-comp">
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <Grid container>
+            <span className="blog_header">
+              <b>Blogs</b> | Updates from the Embifi team
+            </span>
+          </Grid>
+
+          <Grid
+            sx={{
+              minHeight: "500px",
+            }}
+            className="mt-3"
+            container
+          >
+            {loading ? (
+              <div className="loader-cont">
+                <div class="lds-facebook">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            ) : (
+              
+              blogs?.map((blog, index) => {
+                return (
+                  
+                  <Grid className="hello"
+                    key={index}
+                    sm={12}
+                    md={index === 0 ? 12 : 6}
+                    // sx={{
+                    //   // display: "flex",
+                    //   // justifyContent: "center",
+                    //   mb: 5,
+                    // }}
+                    onClick={() => {
+                      handleDetailBlog(blog);
+                    }}
+                  >
+                    <Card
+                      key={index}
+                      sx={{
+                        borderRadius: "10px",
+                        backgroundColor: "#000000e8",
+                        color: "white",
+                        maxWidth: index === 0 ? 770 : 345,
+                        height: index === 0 ? 450 : 345,
+                      }}
+                    >
+                      {/* blog Image */}
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          height={index === 0 ? "285" : "140"}
+                          image={blog?.image}
+                          alt="blog image..."
+                        />
+                        <CardContent
+                          sx={{
+                            padding: "16px 0",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontsize: "2rem",
+                              color: "white",
+                            }}
+                            gutterBottom
+                            variant="h5"
+                            component="div"
+                          >
+                            {blog?.blog_title?.slice(0, 25) + "..."}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              color: "rgba(255, 255, 255, 0.711)",
+                            }}
+                            variant="body2"
+                            color="text.secondary"
+                          >
+                            {blog?.blogs?.[0].body?.slice(0, 200) + "..."}
+                          </Typography>
+                          <div className="profile-details-cont">
+                            <div>
+                              <img
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "50px",
+                                }}
+                                src={
+                                  blog?.userData?.image
+                                    ? blog.userData.image
+                                    : "HumanImage"
+                                }
+                              />
+                            </div>
+                            <span style={{}}>{blog?.userData?.name}</span>
+                            <span style={{ color: "rgb(208 214 224 / 68%)" }}>
+                              {(blog?.createdAt || blog?.updatedAt) && "| "}
+                              {moment(
+                                blog?.createdAt || blog?.updatedAt
+                              ).format("Do MMMM, YYYY")}
+                            </span>
+                          </div>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+    
+                );
+              })
+             
+            )}
+          </Grid>
+        </Container>
+      </div>
+    </ div>
+      <FooterComp />
+    </>
+  );
+}
+
+
+
+   <Grid container>
+            <span className="blog_header">
+              <b>Blogs</b> | Updates from the Embifi team
+            </span>
+          </Grid>

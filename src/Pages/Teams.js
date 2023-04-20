@@ -32,6 +32,8 @@ const OurTeam = () => {
           let { data } = await axios.get(
             // `${BASE_URL}/common/view? =${key}`,
             key,
+
+            
             {
               responseType: "blob",
               headers: { application: "EMBIFI-WEBSITE" },

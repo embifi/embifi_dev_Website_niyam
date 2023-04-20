@@ -1,9 +1,17 @@
+.Blog_container{
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+}
+
+
+
 .main-comp {
-    background-color: #fff;
+    background-color: rgb(0, 0, 0,0.5);
     padding-top: 5rem;
     color: white;
     display: flex;
-    flex-direction: column;
+  
 
 }
 
@@ -68,4 +76,25 @@
       height: 32px;
     }
   }
-  
+  .hello{
+    display: flex;
+
+  }
+.blog-card{
+  display: flex;
+  flex-direction: row;
+  border: 2px solid red;
+}
+.cardAction{
+  border: 2px solid green;
+}
+.blog_card-1{
+  display: flex;
+  color:white;
+  flex-direction: row;
+
+}
+.test{
+  padding: 20px;
+  color: black;
+}
